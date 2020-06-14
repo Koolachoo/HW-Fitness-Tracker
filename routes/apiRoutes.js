@@ -1,8 +1,29 @@
 const Fit = require("../models/fitness.js");
+module.exports = function (app) {
 
-router.post("/api/fitness", function (req, res) {
+app.get("/api/workouts", function (req, res) {
     Fit.find()
         .then(function (data) {
             res.json(data)
         })
-})
+});
+
+app.post("/api/workouts", function (req, res) {
+    Fit.create({})
+        .then(function (data) {
+            res.json(data)
+        })
+});
+
+app.put("/api/workouts/:id", function (req, res) {
+    Fit.findByIdAndUpdate(
+        params.id,
+        { $push: { exercises: body } },
+        { new: true, runValidators: true }
+    )
+        .then(function (data) {
+            res.json(data)
+        })
+});
+
+}
