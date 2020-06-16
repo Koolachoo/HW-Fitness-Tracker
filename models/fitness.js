@@ -33,8 +33,21 @@ var fitness = new Schema({
             }
         }
     ]
-}
+},
+{
+    toJSON: {
+     
+      virtuals: true
+    }
+  }
 );
+
+fitness.virtual("totalDuration").get(function () {
+  
+    return this.exercises.reduce((total, exercise) => {
+        return total + exercise.duration;
+    }, 0);
+});
 
 
 const Fit = mongoose.model("Fit", fitness);
